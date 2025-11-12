@@ -2,7 +2,7 @@
 /*
 Plugin Name: BSD CF7 Error Logger & Recipient Manager
 Description: Logs CF7 invalid events, manages global recipients for all forms, and provides toggleable validations.
-Version: 1.0.0
+Version: 1.0.1
 Author: Your Name
 */
 
@@ -110,8 +110,7 @@ class CF7_Logger_Recipients_Manager {
     }
 
     public function enqueue() {
-        if (!function_exists('wpcf7_enqueue_scripts')) return;
-        wp_register_script('cf7lrm', plugin_dir_url(__FILE__) . 'cf7lrm.js', ['jquery'], '1.0.0', true);
+        wp_register_script('cf7lrm', plugin_dir_url(__FILE__) . 'cf7lrm.js', ['jquery'], '1.0.1', true);
         wp_enqueue_script('cf7lrm');
         wp_localize_script('cf7lrm', 'CF7LRM', [
             'ajax_url' => admin_url('admin-ajax.php'),
@@ -193,3 +192,19 @@ document.addEventListener('wpcf7invalid', function (event) {
 }
 
 new CF7_Logger_Recipients_Manager();
+
+if (!class_exists('Puc_v4_Factory')) {
+    $puc_path = __DIR__ . '/vendor/plugin-update-checker/plugin-update-checker.php';
+    if (file_exists($puc_path)) require $puc_path;
+}
+
+if (class_exists('Puc_v4_Factory')) {
+    $cf7lrm_update_checker = Puc_v4_Factory::buildUpdateChecker(
+        'https://github.com/ORG/REPO',
+        __FILE__,
+        'bsd-cf7-error-logger-recipient-manager'
+    );
+    $cf7lrm_update_checker->setBranch('main');
+    $api = $cf7lrm_update_checker->getVcsApi();
+    if ($api && method_exists($api, 'enableReleaseAssets')) $api->enableReleaseAssets();
+}
