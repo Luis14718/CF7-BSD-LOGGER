@@ -2,7 +2,7 @@
 /*
 Plugin Name: BSD CF7 Error Logger & Recipient Manager
 Description: Logs CF7 invalid events, manages global recipients for all forms, and provides toggleable validations.
-Version: 1.0.1
+Version: 1.0.2
 Author: Your Name
 */
 
@@ -200,11 +200,11 @@ if (!class_exists('Puc_v4_Factory')) {
 
 if (class_exists('Puc_v4_Factory')) {
     $cf7lrm_update_checker = Puc_v4_Factory::buildUpdateChecker(
-        'https://github.com/ORG/REPO',
+        'https://github.com/Luis14718/CF7-BSD-LOGGER',
         __FILE__,
-        'bsd-cf7-error-logger-recipient-manager'
+        'CF7-BSD-LOGGER'
     );
-    $cf7lrm_update_checker->setBranch('main');
+    $cf7lrm_update_checker->setBranch('master');
     $api = $cf7lrm_update_checker->getVcsApi();
     if ($api && method_exists($api, 'enableReleaseAssets')) $api->enableReleaseAssets();
 }
