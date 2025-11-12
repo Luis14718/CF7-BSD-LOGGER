@@ -2,7 +2,7 @@
 /*
 Plugin Name: BSD CF7 Error Logger & Recipient Manager
 Description: Logs CF7 invalid events, manages global recipients for all forms, and provides toggleable validations.
-Version: 1.0.2
+Version: 1.0.3
 Author: Your Name
 */
 
@@ -191,6 +191,7 @@ document.addEventListener('wpcf7invalid', function (event) {
     }
 }
 
+echo "test";
 new CF7_Logger_Recipients_Manager();
 
 if (!class_exists('Puc_v4_Factory')) {
